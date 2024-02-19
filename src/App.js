@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import DifficultyPage from "./DifficultyPage";
+import DifficultyPage from "./pages/DifficultyPage";
 import Home from "./pages/Home";
 
 function App() {
