@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function Home() {
   return (
@@ -15,7 +16,10 @@ export default function Home() {
         <Button text="Warm-up" />
         <Button text="S.K.A.T.E" />
       </div>
-      <Link to="/">Back</Link>
+      <Link to="/">
+        <IoIosArrowBack />
+        Back
+      </Link>
     </div>
   );
 }
