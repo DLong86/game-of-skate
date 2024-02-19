@@ -1,0 +1,9 @@
+[
+  { "id": 1, "trick": "ollie" },
+  { "id": 2, "trick": "front 180" },
+  { "id": 3, "trick": "back 180" },
+  { "id": 4, "trick": "nollie" },
+  { "id": 5, "trick": "shuvit" },
+  { "id": 6, "trick": "pop shuvit" },
+  { "id": 7, "trick": "front pop" }
+]
