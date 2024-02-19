@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function Button({ text }) {
+export default function Button({ text, onClick, value }) {
   return (
     <>
-      <button onClick={() => jhconsole.log("Hello?")}>{text}</button>
+      <button onClick={onClick} value={value}>
+        {text}
+      </button>
     </>
   );
 }

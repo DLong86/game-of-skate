@@ -1,4 +1,6 @@
 import React from "react";
+import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -9,6 +11,11 @@ export default function Home() {
         App to help you warm-up with or to test your S-K-A-T-E Game against the
         AI.
       </p>
+      <div className="flex flex-row">
+        <Button text="Warm-up" />
+        <Button text="S.K.A.T.E" />
+      </div>
+      <Link to="/">Back</Link>
     </div>
   );
 }
