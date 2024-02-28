@@ -5,5 +5,20 @@
   { "id": 4, "trick": "nollie" },
   { "id": 5, "trick": "shuvit" },
   { "id": 6, "trick": "pop shuvit" },
-  { "id": 7, "trick": "front pop" }
+  { "id": 7, "trick": "front pop" },
+  { "id": 8, "trick": "heelflip" },
+  { "id": 9, "trick": "half-cab" },
+  { "id": 10, "trick": "nollie back-180" },
+  { "id": 11, "trick": "fakie shuvit" },
+  { "id": 12, "trick": "fakie front-shuv" },
+  { "id": 13, "trick": "fakie back-180" },
+  { "id": 14, "trick": "kickflip" },
+  { "id": 15, "trick": "fakie kickflip" },
+  { "id": 16, "trick": "nollie heelflip" },
+  { "id": 17, "trick": "switch front-180" },
+  { "id": 18, "trick": "fakie heelflip" },
+  { "id": 19, "trick": "half-cab flip" },
+  { "id": 20, "trick": "frontside flip" },
+  { "id": 21, "trick": "varial flip" },
+  { "id": 22, "trick": "full cab" }
 ]

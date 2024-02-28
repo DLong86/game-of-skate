@@ -13,7 +13,9 @@ export default function Home() {
         AI.
       </p>
       <div className="flex flex-row">
-        <Button text="Warm-up" />
+        <Link to="/warm-up">
+          <Button text="Warm-up" />
+        </Link>
         <Button text="S.K.A.T.E" />
       </div>
       <Link to="/">

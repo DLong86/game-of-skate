@@ -3,6 +3,7 @@ import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import DifficultyPage from "./pages/DifficultyPage";
 import Home from "./pages/Home";
+import WarmUp from "./pages/WarmUp";
 
 function App() {
   const [difficulty, setDifficulty] = useState("chill");
@@ -26,6 +27,7 @@ function App() {
           }
         />
         <Route path="/home" element={<Home />} />
+        <Route path="/warm-up" element={<WarmUp />} />
       </Routes>
     </div>
   );
