@@ -6,11 +6,14 @@ export default function Navbar() {
 	return (
 		<nav className="">
 			<div className="">
-				<Link className="text-xl font-bold" to="/">
+				<Link
+					className="text-4xl font-bold font-magnifico text-[#5a3d2b]"
+					to="/"
+				>
 					Skate App
 				</Link>
 			</div>
-			<ul>
+			<ul className="font-noland text-lg flex gap-4 items-center">
 				<li>
 					<Link to="/">Home</Link>
 				</li>
@@ -20,7 +23,7 @@ export default function Navbar() {
 				<li>
 					<Link to="/contact">Contact</Link>
 				</li>
-				<li>
+				{/* <li>
 					<Link to="/login">
 						<CiLogin />
 					</Link>
@@ -29,7 +32,7 @@ export default function Navbar() {
 					<Link to="/settings">
 						<CiSettings />
 					</Link>
-				</li>
+				</li> */}
 			</ul>
 		</nav>
 	);

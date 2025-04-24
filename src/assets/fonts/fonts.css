@@ -1,0 +1,24 @@
+/* ITC BAUHAUS FONT */
+@font-face {
+	font-family: "bauhaus";
+	src: url("./itc-bauhaus/BauhausStd-Medium.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "bauhaus-bold";
+	src: url("./itc-bauhaus/BauhausStd-Bold.ttf");
+}
+
+/* ITC MAGNIFICO FONT */
+@font-face {
+	font-family: "magnifico";
+	src: url("./Magnifico-Daytime-ITC-Std-Regular/Magnifico-Daytime-ITC-Std-Regular.otf")
+		format("truetype");
+}
+
+/* NOLAND FONT */
+@font-face {
+	font-family: "noland";
+	src: url("./noland/Noland-Bold.ttf");
+}

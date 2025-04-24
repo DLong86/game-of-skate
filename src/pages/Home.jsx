@@ -4,18 +4,23 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
 	return (
-		<div>
-			<h1>WELCOME</h1>
-			<h3>Skateboarding App</h3>
-			<p>
-				App to help you warm-up with, or to test your S-K-A-T-E Game against the
-				AI.
-			</p>
-			<div className="flex flex-row">
-				<Link to="/warm-up">
-					<Button text="Warm-up" />
+		<div className="h-screen flex flex-col items-center md:justify-center justify-around bg-[#E8DCC5] text-[#100c08] gap-12">
+			{/* <h1 className="font-bauhaus flex">WELCOME</h1> */}
+			<div className="">
+				<Link
+					className="md:text-5xl text-4xl font-bold font-magnifico text-[#5a3d2b]"
+					to="/"
+				>
+					Skate App
 				</Link>
-				<Button text="S.K.A.T.E" />
+			</div>
+			<div className="flex flex-row gap-6">
+				{/* <Link to="/warm-up">
+					<Button text="Warm Up" />
+				</Link> */}
+				<Link to="/rock-paper-scissors">
+					<Button text="Play" />
+				</Link>
 			</div>
 		</div>
 	);

@@ -2,7 +2,13 @@
 module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				magnifico: ["magnifico", "sans-serif"],
+				bauhaus: ["bauhaus", "sans-serif"],
+				noland: ["noland", "sans-serif"],
+			},
+		},
 	},
 	plugins: [],
 };

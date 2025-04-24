@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 function Modal({
 	closeModal,
-	trickAttempts,
-	handleTrickAttempts,
-	originalTrickList,
-	handleNumOfTricks,
-	selectedNumberOfTricks,
+	opponents,
+	handleDifficulty,
+	handleOpponent,
+	difficulty,
+	handleTrickDifficulty,
+	trickDifficulty,
 }) {
 	const modalRef = useRef();
 
@@ -37,30 +38,6 @@ function Modal({
 		exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
 	};
 
-	const options = [
-		{ value: 3, text: "3 Attempts" },
-		{ value: 5, text: "5 Attempts" },
-		{ value: 10, text: "10 Attempts" },
-		{ value: 15, text: "15 Attempts" },
-	];
-
-	const trickAmountOptions = [
-		{ value: 5, text: "5 Tricks" },
-		{ value: 7, text: "7 Tricks" },
-		{ value: 10, text: "10 Tricks" },
-		{ value: 15, text: "15 Tricks" },
-		{
-			value: originalTrickList.length,
-			text: `${originalTrickList.length} Tricks`,
-		},
-	];
-
-	const difficultyOptions = [
-		{ value: 1, text: "Chill" },
-		{ value: 2, text: "Medium" },
-		{ value: 3, text: "Pro" },
-	];
-
 	return (
 		<AnimatePresence>
 			<motion.div
@@ -72,60 +49,116 @@ function Modal({
 			>
 				<motion.div
 					ref={modalRef}
-					className="bg-gray-500 w-[400px] rounded-md p-8 shadow-lg"
+					className="bg-[#100c08] text-white rounded-md p-6 shadow-lg flex-col justify-between"
 					variants={modalVariants}
 				>
-					<h1 className="text-2xl mb-4">Select Warmup options</h1>
+					<h1 className="text-3xl mb-6 text-center font-noland tracking-wide">
+						Settings
+					</h1>
 
-					<div className="flex items-center gap-2 mb-2">
-						<p>Difficulty:</p>
+					<div className="flex-col items-center mb-6">
+						<p className="mb-4 text-xl">Difficulty:</p>
 						{/* <button className="border rounded-sm p-2">Don't Press me</button> */}
-						<select name="" id="">
-							{difficultyOptions.map((option) => (
-								<option key={option.value} value={option.value}>
-									{option.text}
-								</option>
-							))}
-						</select>
-					</div>
-
-					<div className="flex items-center gap-2 mb-2">
-						<p>Number of tricks:</p>
-						{/* <button className="border rounded-sm p-2">Press me</button> */}
-						<select value={selectedNumberOfTricks} onChange={handleNumOfTricks}>
-							{trickAmountOptions.map((option) => (
-								<option key={option.value} value={option.value}>
-									{option.text}
-								</option>
-							))}
-						</select>
-					</div>
-
-					<div className="flex items-center gap-2 mb-2">
-						<p>Trick attempts:</p>
-						<div className="">
-							<select value={trickAttempts} onChange={handleTrickAttempts}>
-								{options.map((option) => (
-									<option key={option.value} value={option.value}>
-										{option.text}
-									</option>
-								))}
-							</select>
+						<div className="flex justify-between w-full">
+							<button
+								className={`border border-white rounded-md px-4 py-1 ${
+									difficulty === "easy"
+										? "bg-white text-[#100c08]"
+										: "bg-[#100c08] text-white"
+								}`}
+								id="easy"
+								onClick={handleDifficulty}
+							>
+								Easy
+							</button>
+							<button
+								className={`border border-white rounded-md px-4 py-1 ${
+									difficulty === "medium"
+										? "bg-white text-[#100c08]"
+										: "bg-[#100c08] text-white"
+								}`}
+								id="medium"
+								onClick={handleDifficulty}
+							>
+								Medium
+							</button>
+							<button
+								className={`border border-white rounded-md px-4 py-1 ${
+									difficulty === "hard"
+										? "bg-white text-[#100c08]"
+										: "bg-[#100c08] text-white"
+								}`}
+								id="hard"
+								onClick={handleDifficulty}
+							>
+								Hard
+							</button>
 						</div>
 					</div>
 
-					<div className="flex items-center justify-center gap-4 ">
+					<div className="flex-col items-center mb-6">
+						<p className="mb-4 text-xl">Tricks:</p>
+						<div className="flex justify-between w-full gap-2">
+							<button
+								className={`border border-white rounded-md px-2 py-1 ${
+									trickDifficulty === "beginner"
+										? "bg-white text-[#100c08]"
+										: "bg-[#100c08] text-white"
+								}`}
+								id="beginner"
+								onClick={handleTrickDifficulty}
+							>
+								Beginner
+							</button>
+							<button
+								className={`border border-white rounded-md px-2 py-1 ${
+									trickDifficulty === "intermediate"
+										? "bg-white text-[#100c08]"
+										: "bg-[#100c08] text-white"
+								}`}
+								id="intermediate"
+								onClick={handleTrickDifficulty}
+							>
+								Intermediate
+							</button>
+							<button
+								className={`border border-white rounded-md px-2 py-1 ${
+									trickDifficulty === "advanced"
+										? "bg-white text-[#100c08]"
+										: "bg-[#100c08] text-white"
+								}`}
+								id="advanced"
+								onClick={handleTrickDifficulty}
+							>
+								Advanced
+							</button>
+						</div>
+					</div>
+
+					<div className="flex-col items-center gap-2 mb-12">
+						<p className="mb-4 text-xl">Opponent:</p>
+						<div className="">
+							<select
+								className="text-black p-1 rounded-md w-full"
+								onChange={handleOpponent}
+							>
+								{opponents &&
+									opponents.map((opponent) => (
+										<option key={opponent.value} value={opponent.value}>
+											{opponent.value}
+										</option>
+									))}
+							</select>
+						</div>
+						{/* <button className="border rounded-sm p-2">Press me</button> */}
+					</div>
+
+					<div className="flex items-center">
 						<button
-							className="border rounded-sm px-8 py-2 flex items-center text-white bg-gray-700 shadow-lg"
+							className="w-1/2 border-2 rounded-md px-8 py-2 bg-[#e5771e] text-[#5a3d2b] font-bold border-[#5a3d2b] shadow-lg mx-auto"
 							onClick={closeModal}
 						>
 							Update
-						</button>
-						<button
-							className="border rounded-sm px-8 py-2 flex items-center text-white bg-gray-700 shadow-lg "
-							onClick={closeModal}
-						>
-							Close
 						</button>
 					</div>
 				</motion.div>

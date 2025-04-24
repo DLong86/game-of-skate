@@ -5,6 +5,7 @@ import useTrickData from "../hooks/useTrickData";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
 import { AnimatePresence } from "framer-motion";
+import Navbar from "../components/Navbar";
 
 export default function WarmUp() {
 	const [trick, setTrick] = useState("");
@@ -71,44 +72,47 @@ export default function WarmUp() {
 	};
 
 	return (
-		<div className="relative w-full">
-			<div>
-				<h1>Let's Get Physical</h1>
-				<p>Select how many times you want to practice each trick</p>
-				<p>
-					If you miss, start again from zero. If you land all - move on to the
-					next trick.
-				</p>
-			</div>
-			<button className="border rounded-md p-2 shadow-md" onClick={handleModal}>
-				Settings
-			</button>
-			<AnimatePresence>
-				{displayModal && (
-					<Modal
-						closeModal={() => setDisplayModal(false)}
-						originalTrickList={originalTrickList}
-						handleNumOfTricks={handleNumOfTricks}
-						selectedNumberOfTricks={selectedTrickAmount}
-					/>
-				)}
-			</AnimatePresence>
-
-			<div className="flex gap-2">
+		<div className="relative w-full bg-[#E8DCC5] text-[#100c08] h-screen">
+			<Navbar />
+			<div className="flex flex-col w-2/3 items-center justify-around py-6 px-4 bg-blue-100 mx-auto">
+				<div className="font-roboto">
+					<h1 className="text-3xl font-noland">Let's Get Physical</h1>
+					<p>Select how many times you want to practice each trick.</p>
+					<p>
+						If you miss, start again from zero. If you land all - move on to the
+						next trick.
+					</p>
+				</div>
 				<button
-					className="border rounded-md flex items-center"
-					onClick={handleNextTrick}
+					className="border-2 border-gray-700 rounded-md p-2 shadow-md my-4"
+					onClick={handleModal}
 				>
-					Next Trick
-					<FaAngleRight />
+					Settings
 				</button>
-				<Link className="border rounded-md flex items-center" to="/">
-					<IoIosArrowBack />
-					Back
-				</Link>
-			</div>
-			<div className="">
-				<h1>Land 3: {trick}'s </h1>
+				<AnimatePresence>
+					{displayModal && (
+						<Modal
+							closeModal={() => setDisplayModal(false)}
+							originalTrickList={originalTrickList}
+							handleNumOfTricks={handleNumOfTricks}
+							selectedNumberOfTricks={selectedTrickAmount}
+						/>
+					)}
+				</AnimatePresence>
+				<div className="">
+					<button
+						className="border border-gray-700 px-2 py-1 rounded-md flex items-center"
+						onClick={handleNextTrick}
+					>
+						Next Trick
+						<FaAngleRight />
+					</button>
+				</div>
+				<div className="">
+					<h1>
+						Land 3: <span className="font-noland text-2xl">{trick}'s</span>{" "}
+					</h1>
+				</div>
 			</div>
 		</div>
 	);

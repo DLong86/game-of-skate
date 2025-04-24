@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import DifficultyPage from "./pages/DifficultyPage";
 import Home from "./pages/Home";
 import WarmUp from "./pages/WarmUp";
+import Skate from "./pages/Skate";
+import RockPaper from "./pages/RockPaper";
 
 function App() {
 	const [difficulty, setDifficulty] = useState("chill");
@@ -15,7 +17,7 @@ function App() {
 
 	return (
 		<div className="">
-			<Navbar />
+			{/* <Navbar /> */}
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route
@@ -28,6 +30,8 @@ function App() {
 					}
 				/>
 				<Route path="/warm-up" element={<WarmUp />} />
+				<Route path="/rock-paper-scissors" element={<RockPaper />} />
+				<Route path="/skate" element={<Skate />} />
 			</Routes>
 		</div>
 	);
