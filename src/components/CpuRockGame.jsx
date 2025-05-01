@@ -2,12 +2,13 @@ import { useState } from "react";
 import { GiRock } from "react-icons/gi";
 import { TbToiletPaper } from "react-icons/tb";
 import { LiaHandScissors } from "react-icons/lia";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Two buttons - depending on outcome of rock paper scissors
 // 1: to play rock paper scissors - If win or lose that button is disabled and the play skate button is active
 // 2: If draw - play skate disabled but play rock paper scissors button active
 
-function CpuRockGame({ header, choice, cpuRandomNum }) {
+function CpuRockGame({ header, cpuRandomNum, countdown }) {
 	const showChoice = () => {
 		if (cpuRandomNum === "") {
 			return "";
@@ -23,7 +24,7 @@ function CpuRockGame({ header, choice, cpuRandomNum }) {
 		}
 	};
 	return (
-		<div className="border-2 border-black rounded-md p-2 w-1/2 mx-2">
+		<div className="border-2 border-black rounded-md p-2 w-1/2 mx-2 shadow-md">
 			<h1 className="mb-4">{header}</h1>
 			<h1>COUNTER</h1>
 			{/* <div className="flex justify-between mb-8">
@@ -50,7 +51,13 @@ function CpuRockGame({ header, choice, cpuRandomNum }) {
 				</button>
 			</div> */}
 			<div className="flex justify-center">
-				<h1 className="text-8xl">{showChoice()}</h1>
+				{countdown !== null ? (
+					<h1 className="text-8xl font-bold text-black/50 drop-shadow-md">
+						{countdown}
+					</h1>
+				) : (
+					<h1 className="text-8xl drop-shadow-md">{showChoice()}</h1>
+				)}
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../components/Modal";
@@ -21,67 +21,86 @@ const opponents = [
 	{ id: 12, value: "Bryan Herman" },
 	{ id: 13, value: "Geoff Rowley" },
 	{ id: 14, value: "Dustin Henry" },
-	{ id: 15, value: "Etienne Cagny" },
 ];
 
 function RockPaper() {
 	const [displayModal, setDisplayModal] = useState(true);
-	const [difficulty, setDifficulty] = useState("easy");
-	const [opponent, setOpponent] = useState("Random");
-	const [trickDifficulty, setTrickDifficulty] = useState("beginner");
-	const [disabled, setDisabled] = useState(true);
+	const [gameSettings, setGameSettings] = useState({
+		difficulty: "easy",
+		opponent: "Random",
+		trickDifficulty: "beginner",
+	});
 	const [choice, setChoice] = useState("");
 	const [cpuRandomNum, setCpuRandomNum] = useState();
+	const [countdown, setCountdown] = useState(null);
+	const [result, setResult] = useState("");
 
 	const handleChoice = (e) => {
 		setChoice(e.target.id);
+		setCpuRandomNum(null);
 	};
 
-	const handleModal = () => {
-		setDisplayModal(!displayModal);
-	};
-
-	const handleDifficulty = (e) => {
-		if (e.target.id === "easy") {
-			setDifficulty("easy");
-		}
-
-		if (e.target.id === "medium") {
-			setDifficulty("medium");
-		}
-
-		if (e.target.id === "hard") {
-			setDifficulty("hard");
-		}
-	};
-
-	const handleTrickDifficulty = (e) => {
-		if (e.target.id === "beginner") {
-			setTrickDifficulty("beginner");
-		}
-
-		if (e.target.id === "intermediate") {
-			setTrickDifficulty("intermediate");
-		}
-
-		if (e.target.id === "advanced") {
-			setTrickDifficulty("advanced");
-		}
-	};
-
-	const handleOpponent = (e) => {
-		if (e.target.value === "Random") {
-			const randomIndex = Math.floor(Math.random() * opponents.length);
-			const randomOpponent = opponents[randomIndex].value;
-			setOpponent(randomOpponent);
-		} else {
-			setOpponent(e.target.value);
-		}
-	};
+	function handleSettings(key) {
+		return function (e) {
+			setGameSettings((prev) => ({
+				...prev,
+				[key]: e.target.id || e.target.value,
+			}));
+		};
+	}
 
 	const handleCpuNumber = () => {
-		const num = Math.floor(Math.random() * 3);
-		setCpuRandomNum(num + 1);
+		setCountdown(3);
+
+		const interval = setInterval(() => {
+			setCountdown((prev) => {
+				if (prev === 1) {
+					clearInterval(interval); // Stop when reaching 1
+					setCountdown(null);
+					const num = Math.floor(Math.random() * 3);
+					setCpuRandomNum(num + 1);
+				}
+				return prev - 1; // decrease countdown
+			});
+		}, 500);
+	};
+
+	// 1 = rock, 2 = paper, 3 = scissors
+	useEffect(() => {
+		const handleWinner = () => {
+			if (choice !== "" && cpuRandomNum)
+				if (choice === "rock" && cpuRandomNum === 1) {
+					setResult("Draw");
+				} else if (choice === "rock" && cpuRandomNum === 2) {
+					setResult("You Lose");
+				} else if (choice === "rock" && cpuRandomNum === 3) {
+					setResult("You Win");
+				} else if (choice === "paper" && cpuRandomNum === 1) {
+					setResult("You Win");
+				} else if (choice === "paper" && cpuRandomNum === 2) {
+					setResult("Draw");
+				} else if (choice === "paper" && cpuRandomNum === 3) {
+					setResult("You Lose");
+				} else if (choice === "scissors" && cpuRandomNum === 1) {
+					setResult("You Lose");
+				} else if (choice === "scissors" && cpuRandomNum === 2) {
+					setResult("You Win");
+				} else if (choice === "scissors" && cpuRandomNum === 3) {
+					setResult("Draw");
+				} else {
+					console.log(null);
+				}
+		};
+		handleWinner();
+	}, [choice, cpuRandomNum]);
+
+	console.log(result);
+
+	const handleReset = () => {
+		setChoice("");
+		setCpuRandomNum();
+		setResult("");
+		setCountdown(null);
 	};
 
 	return (
@@ -95,24 +114,24 @@ function RockPaper() {
 				</Link>
 			</div>
 
-			<button onClick={handleModal}>Settings</button>
+			<button onClick={() => setDisplayModal(!displayModal)}>Settings</button>
 			<AnimatePresence>
 				{displayModal && (
 					<Modal
 						closeModal={() => setDisplayModal(false)}
 						opponents={opponents}
-						handleDifficulty={handleDifficulty}
-						handleTrickDifficulty={handleTrickDifficulty}
-						handleOpponent={handleOpponent}
-						difficulty={difficulty}
-						trickDifficulty={trickDifficulty}
+						handleDifficulty={handleSettings("difficulty")}
+						handleTrickDifficulty={handleSettings("trickDifficulty")}
+						handleOpponent={handleSettings("opponent")}
+						difficulty={gameSettings.difficulty}
+						trickDifficulty={gameSettings.trickDifficulty}
 					/>
 				)}
 			</AnimatePresence>
 			<div className="">
-				<h1>Difficulty: {difficulty}</h1>
-				<h1>Trick Level: {trickDifficulty}</h1>
-				<h1>Opponent: {opponent}</h1>
+				<h1>Difficulty: {gameSettings.difficulty}</h1>
+				<h1>Trick Level: {gameSettings.trickDifficulty}</h1>
+				<h1>Opponent: {gameSettings.opponent}</h1>
 			</div>
 			<div className="flex justify-center gap-2">
 				<RockPaperGame
@@ -120,22 +139,40 @@ function RockPaper() {
 					choice={choice}
 					handleChoice={handleChoice}
 				/>
-				<CpuRockGame header={opponent} cpuRandomNum={cpuRandomNum} />
+				<CpuRockGame
+					header={gameSettings.opponent}
+					cpuRandomNum={cpuRandomNum}
+					countdown={countdown}
+				/>
 			</div>
+			<h1 className="text-6xl text-[#e5771e] font-bold font-noland tracking-wide text-center mt-12">
+				{result}
+			</h1>
 			<div className="w-1/4 mx-auto flex flex-col gap-2 justify-center mt-10">
 				<button
-					className="px-2 border border-black rounded-md"
+					className={`px-2 border border-black rounded-md ${
+						!choice || (result && result !== "Draw")
+							? "opacity-10"
+							: "opacity-100"
+					}`}
+					disabled={!choice || (result && result !== "Draw")}
 					onClick={handleCpuNumber}
 				>
 					Shoot
 				</button>
 				<button
 					className={`px-2 border border-black rounded-md ${
-						disabled ? "opacity-10" : "opacity-100"
+						result === "Draw" || !result ? "opacity-10" : "opacity-100"
 					}`}
-					disabled={disabled}
+					disabled={!result || result === "Draw"}
 				>
-					Play
+					<Link to="/Skate">Play</Link>
+				</button>
+				<button
+					className="px-2 border border-black rounded-md"
+					onClick={handleReset}
+				>
+					Reset
 				</button>
 			</div>
 		</div>

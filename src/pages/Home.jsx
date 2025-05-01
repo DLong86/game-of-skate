@@ -8,7 +8,7 @@ export default function Home() {
 			{/* <h1 className="font-bauhaus flex">WELCOME</h1> */}
 			<div className="">
 				<Link
-					className="md:text-5xl text-4xl font-bold font-magnifico text-[#5a3d2b]"
+					className="md:text-5xl text-4xl font-bold font-magnifico text-[#e5771e]"
 					to="/"
 				>
 					Skate App

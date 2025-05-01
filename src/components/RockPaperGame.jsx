@@ -23,7 +23,7 @@ function RockPaperGame({ header, choice, handleChoice }) {
 		}
 	};
 	return (
-		<div className="border-2 border-black rounded-md p-2 w-1/2 mx-2">
+		<div className="border-2 border-black rounded-md p-2 w-1/2 mx-2 shadow-md">
 			<h1 className="mb-4">{header}</h1>
 			<div className="flex justify-between mb-8">
 				<button
@@ -49,7 +49,7 @@ function RockPaperGame({ header, choice, handleChoice }) {
 				</button>
 			</div>
 			<div className="flex justify-center">
-				<h1 className="text-8xl">{showChoice()}</h1>
+				<h1 className="text-8xl drop-shadow-md">{showChoice()}</h1>
 			</div>
 		</div>
 	);

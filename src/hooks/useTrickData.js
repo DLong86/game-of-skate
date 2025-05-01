@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import useEasyTrick from "./useEasyTrick";
+import useBeginnerTrick from "./useBeginnerTrick";
 
 export default function useTrickData() {
-  const { data, loading } = useEasyTrick();
-  const [trickList, setTrickList] = useState([]);
+	const { data, loading } = useBeginnerTrick();
+	const [trickList, setTrickList] = useState([]);
 
-  useEffect(() => {
-    if (!loading && data) {
-      const tricks = data.map((item) => item.trick);
-      setTrickList(tricks);
-    }
-  }, [loading, data]);
+	useEffect(() => {
+		if (!loading && data) {
+			const tricks = data.map((item) => item.trick);
+			setTrickList(tricks);
+		}
+	}, [loading, data]);
 
-  return [trickList, setTrickList];
+	return [trickList, setTrickList];
 }
