@@ -49,22 +49,23 @@ function Modal({
 			>
 				<motion.div
 					ref={modalRef}
-					className="bg-[#100c08] text-white rounded-md p-6 shadow-lg flex-col justify-between"
+					className="bg-[#e0dde5] text-[#100c08] rounded-md p-6 shadow-lg flex-col justify-between"
 					variants={modalVariants}
 				>
 					<h1 className="text-3xl mb-6 text-center font-noland tracking-wide">
 						Settings
 					</h1>
+					{/* #bfc489 */}
 
 					<div className="flex-col items-center mb-6">
 						<p className="mb-4 text-xl">Difficulty:</p>
 						{/* <button className="border rounded-sm p-2">Don't Press me</button> */}
 						<div className="flex justify-between w-full">
 							<button
-								className={`border border-white rounded-md px-4 py-1 ${
+								className={`border border-[#100c08] rounded-full px-4 py-1 ${
 									difficulty === "easy"
-										? "bg-white text-[#100c08]"
-										: "bg-[#100c08] text-white"
+										? "bg-[#297a48] text-white"
+										: "bg-[#bfc489] "
 								}`}
 								id="easy"
 								onClick={handleDifficulty}
@@ -72,10 +73,10 @@ function Modal({
 								Easy
 							</button>
 							<button
-								className={`border border-white rounded-md px-4 py-1 ${
+								className={`border border-[#100c08] rounded-full px-4 py-1 ${
 									difficulty === "medium"
-										? "bg-white text-[#100c08]"
-										: "bg-[#100c08] text-white"
+										? "bg-[#297a48] text-white"
+										: "bg-[#bfc489]"
 								}`}
 								id="medium"
 								onClick={handleDifficulty}
@@ -83,10 +84,10 @@ function Modal({
 								Medium
 							</button>
 							<button
-								className={`border border-white rounded-md px-4 py-1 ${
+								className={`border border-[#100c08] rounded-full px-4 py-1 ${
 									difficulty === "hard"
-										? "bg-white text-[#100c08]"
-										: "bg-[#100c08] text-white"
+										? "bg-[#297a48] text-white"
+										: "bg-[#bfc489]"
 								}`}
 								id="hard"
 								onClick={handleDifficulty}
@@ -100,10 +101,10 @@ function Modal({
 						<p className="mb-4 text-xl">Tricks:</p>
 						<div className="flex justify-between w-full gap-2">
 							<button
-								className={`border border-white rounded-md px-2 py-1 ${
+								className={`border border-[#100c08] rounded-full px-2 py-1 ${
 									trickDifficulty === "beginner"
-										? "bg-white text-[#100c08]"
-										: "bg-[#100c08] text-white"
+										? "bg-[#297a48] text-white"
+										: "bg-[#bfc489]"
 								}`}
 								id="beginner"
 								onClick={handleTrickDifficulty}
@@ -111,10 +112,10 @@ function Modal({
 								Beginner
 							</button>
 							<button
-								className={`border border-white rounded-md px-2 py-1 ${
+								className={`border border-[#100c08] rounded-full px-2 py-1 ${
 									trickDifficulty === "intermediate"
-										? "bg-white text-[#100c08]"
-										: "bg-[#100c08] text-white"
+										? "bg-[#297a48] text-white"
+										: "bg-[#bfc489]"
 								}`}
 								id="intermediate"
 								onClick={handleTrickDifficulty}
@@ -122,10 +123,10 @@ function Modal({
 								Intermediate
 							</button>
 							<button
-								className={`border border-white rounded-md px-2 py-1 ${
+								className={`border border-[#100c08] rounded-full px-2 py-1 ${
 									trickDifficulty === "advanced"
-										? "bg-white text-[#100c08]"
-										: "bg-[#100c08] text-white"
+										? "bg-[#297a48] text-white"
+										: "bg-[#bfc489]"
 								}`}
 								id="advanced"
 								onClick={handleTrickDifficulty}
@@ -139,7 +140,7 @@ function Modal({
 						<p className="mb-4 text-xl">Opponent:</p>
 						<div className="">
 							<select
-								className="text-black p-1 rounded-md w-full"
+								className="text-black p-2 rounded-full w-full outline-none bg-[#e0dde5] border border-black focus:bg-[#eae8ec]"
 								onChange={handleOpponent}
 							>
 								{opponents &&
@@ -155,7 +156,7 @@ function Modal({
 
 					<div className="flex items-center">
 						<button
-							className="w-1/2 border-2 rounded-md px-8 py-2 bg-[#e5771e] text-[#5a3d2b] font-bold border-[#5a3d2b] shadow-lg mx-auto"
+							className="w-1/2 border-2 rounded-full px-8 py-2 bg-[#e87dc6] text-[#100c08] font-noland uppercase font-bold border-[#100c08] shadow-xl mx-auto hover:bg-pink-200 duration-150"
 							onClick={closeModal}
 						>
 							Update

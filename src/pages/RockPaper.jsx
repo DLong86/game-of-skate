@@ -4,36 +4,19 @@ import { AnimatePresence } from "framer-motion";
 import Modal from "../components/Modal";
 import RockPaperGame from "../components/RockPaperGame";
 import CpuRockGame from "../components/CpuRockGame";
+import BurgerMenu from "../components/BurgerMenu";
 
-const opponents = [
-	{ id: 0, value: "Random" },
-	{ id: 1, value: "Shane O'Neill" },
-	{ id: 2, value: "Max Palmer" },
-	{ id: 3, value: `Kevin "Spanky" Long` },
-	{ id: 4, value: "Yuto Horigome" },
-	{ id: 5, value: "Louie Lopez" },
-	{ id: 6, value: "Aaron Herrington" },
-	{ id: 7, value: "Alexis Sablone" },
-	{ id: 8, value: "Stu Kirst" },
-	{ id: 9, value: "Rowan Davis" },
-	{ id: 10, value: "Chewy Cannon" },
-	{ id: 11, value: "Ishod Weir" },
-	{ id: 12, value: "Bryan Herman" },
-	{ id: 13, value: "Geoff Rowley" },
-	{ id: 14, value: "Dustin Henry" },
-];
-
-function RockPaper() {
+function RockPaper({
+	gameSettings,
+	setGameSettings,
+	result,
+	setResult,
+	opponents,
+}) {
 	const [displayModal, setDisplayModal] = useState(true);
-	const [gameSettings, setGameSettings] = useState({
-		difficulty: "easy",
-		opponent: "Random",
-		trickDifficulty: "beginner",
-	});
 	const [choice, setChoice] = useState("");
 	const [cpuRandomNum, setCpuRandomNum] = useState();
 	const [countdown, setCountdown] = useState(null);
-	const [result, setResult] = useState("");
 
 	const handleChoice = (e) => {
 		setChoice(e.target.id);
@@ -105,16 +88,23 @@ function RockPaper() {
 
 	return (
 		<div className="h-screen text-[#100c08]">
-			<div className="">
+			<div className="flex items-center justify-between p-2">
 				<Link
-					className="md:text-5xl text-4xl font-bold font-magnifico text-[#5a3d2b]"
+					className="md:text-5xl text-4xl font-bold font-noland text-[#100c08] z-50"
 					to="/"
 				>
 					Skate App
 				</Link>
+
+				<BurgerMenu
+					difficulty={gameSettings.difficulty}
+					trickDifficulty={gameSettings.trickDifficulty}
+					opponent={gameSettings.opponent}
+					setDisplayModal={setDisplayModal}
+					displayModal={displayModal}
+				/>
 			</div>
 
-			<button onClick={() => setDisplayModal(!displayModal)}>Settings</button>
 			<AnimatePresence>
 				{displayModal && (
 					<Modal
@@ -128,12 +118,8 @@ function RockPaper() {
 					/>
 				)}
 			</AnimatePresence>
-			<div className="">
-				<h1>Difficulty: {gameSettings.difficulty}</h1>
-				<h1>Trick Level: {gameSettings.trickDifficulty}</h1>
-				<h1>Opponent: {gameSettings.opponent}</h1>
-			</div>
-			<div className="flex justify-center gap-2">
+
+			<div className="flex flex-col lg:flex-row justify-center gap-2  pt-10">
 				<RockPaperGame
 					header="You"
 					choice={choice}
@@ -145,12 +131,12 @@ function RockPaper() {
 					countdown={countdown}
 				/>
 			</div>
-			<h1 className="text-6xl text-[#e5771e] font-bold font-noland tracking-wide text-center mt-12">
+			<h1 className="text-6xl font-bold font-noland tracking-wide text-center mt-12 drop-shadow-md">
 				{result}
 			</h1>
-			<div className="w-1/4 mx-auto flex flex-col gap-2 justify-center mt-10">
+			<div className="w-2/3 lg:w-1/4 mx-auto flex lg:flex-col gap-4 justify-center mt-10 ">
 				<button
-					className={`px-2 border border-black rounded-md ${
+					className={`p-2 border border-black bg-[#bfc489] rounded-full w-1/2 mx-auto ${
 						!choice || (result && result !== "Draw")
 							? "opacity-10"
 							: "opacity-100"
@@ -160,16 +146,19 @@ function RockPaper() {
 				>
 					Shoot
 				</button>
+
+				<Link className="w-1/2 mx-auto" to="/Skate">
+					<button
+						className={`p-2 border border-black bg-[#e87dc6] w-full rounded-full ${
+							result === "Draw" || !result ? "opacity-10" : "opacity-100"
+						}`}
+						disabled={!result || result === "Draw"}
+					>
+						Play
+					</button>
+				</Link>
 				<button
-					className={`px-2 border border-black rounded-md ${
-						result === "Draw" || !result ? "opacity-10" : "opacity-100"
-					}`}
-					disabled={!result || result === "Draw"}
-				>
-					<Link to="/Skate">Play</Link>
-				</button>
-				<button
-					className="px-2 border border-black rounded-md"
+					className="px-2 border border-black rounded-full w-1/2 mx-auto"
 					onClick={handleReset}
 				>
 					Reset

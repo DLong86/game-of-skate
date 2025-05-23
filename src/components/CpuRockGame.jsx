@@ -24,9 +24,9 @@ function CpuRockGame({ header, cpuRandomNum, countdown }) {
 		}
 	};
 	return (
-		<div className="border-2 border-black rounded-md p-2 w-1/2 mx-2 shadow-md">
+		<div className="border-2 border-black rounded-md p-2 lg:w-1/2 mx-2 shadow-md">
 			<h1 className="mb-4">{header}</h1>
-			<h1>COUNTER</h1>
+
 			{/* <div className="flex justify-between mb-8">
 				<button
 					id="rock"
@@ -52,11 +52,9 @@ function CpuRockGame({ header, cpuRandomNum, countdown }) {
 			</div> */}
 			<div className="flex justify-center">
 				{countdown !== null ? (
-					<h1 className="text-8xl font-bold text-black/50 drop-shadow-md">
-						{countdown}
-					</h1>
+					<h1 className="text-8xl font-bold drop-shadow-sm">{countdown}</h1>
 				) : (
-					<h1 className="text-8xl drop-shadow-md">{showChoice()}</h1>
+					<h1 className="text-8xl drop-shadow-md pb-20">{showChoice()}</h1>
 				)}
 			</div>
 		</div>

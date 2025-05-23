@@ -6,10 +6,7 @@ export default function Navbar() {
 	return (
 		<nav className="">
 			<div className="">
-				<Link
-					className="text-4xl font-bold font-magnifico text-[#5a3d2b]"
-					to="/"
-				>
+				<Link className="text-4xl font-bold font-noland text-[#5a3d2b]" to="/">
 					Skate App
 				</Link>
 			</div>
