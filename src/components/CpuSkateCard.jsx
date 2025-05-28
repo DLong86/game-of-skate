@@ -1,16 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function CpuSkateCard({ currentPlayer, gameSettings, trickList }) {
+function CpuSkateCard({
+	currentPlayer,
+	gameSettings,
+	trickList,
+	handleLandChance,
+}) {
 	const [trick, setTrick] = useState("");
+	const [landed, setLanded] = useState(null);
 
-	const handleTrickSelection = () => {
-		if (trickList.length > 0) {
+	const handleCpuTurn = () => {
+		if (!currentPlayer && trickList.length > 0) {
 			const randomIndex = Math.floor(Math.random() * trickList.length);
-			setTrick(trickList[randomIndex].trick);
+			const selectedTrick = trickList[randomIndex];
+
+			setTrick(selectedTrick);
+
+			const chance = handleLandChance(
+				gameSettings.difficulty,
+				selectedTrick.difficulty
+			);
+
+			// 50% chance to land??? - might be too high or low --- need to test!!!!
+			const didLand = Math.random() < chance;
+			setLanded(didLand);
 		}
 	};
-
-	console.log(trick);
 
 	return (
 		<div
@@ -27,12 +42,20 @@ function CpuSkateCard({ currentPlayer, gameSettings, trickList }) {
 				</h1>
 			</div>
 			<div className="">
-				{/* <h1 className="font-noland text-6xl tracking-wide m-0 p-0">Kickflip</h1> */}
+				<h1 className="font-noland text-6xl tracking-wide m-0 p-0">
+					{trick.trick || "Press Start"}
+				</h1>
 			</div>
+
+			<div className="">
+				{landed === true && <p className="">Landed!</p>}{" "}
+				{landed === false && <p className="">Bailed!</p>}
+			</div>
+
 			<div className=" w-full flex justify-around">
 				<button
 					className="border-2 border-[#100c08] rounded-full px-8 py-1 shadow-md  bg-[#e87dc6]"
-					onClick={handleTrickSelection}
+					onClick={handleCpuTurn}
 				>
 					Start
 				</button>
