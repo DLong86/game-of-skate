@@ -87,6 +87,7 @@ function Skate({ gameSettings, result }) {
 					trickList={beginnerTricks}
 					handleSelectTrick={handleSelectTrick}
 					selectedTrick={selectedTrick}
+					defensive={defensive}
 				/>
 				<CpuSkateCard
 					gameSettings={gameSettings}

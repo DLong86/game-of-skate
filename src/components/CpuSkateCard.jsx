@@ -6,6 +6,7 @@ function CpuSkateCard({
 	trickList,
 	handleLandChance,
 }) {
+	// Might need to move this state and function for the handleTurn up
 	const [trick, setTrick] = useState("");
 	const [landed, setLanded] = useState(null);
 

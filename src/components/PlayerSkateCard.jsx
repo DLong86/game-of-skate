@@ -5,6 +5,7 @@ function PlayerSkateCard({
 	trickList,
 	handleSelectTrick,
 	selectedTrick,
+	defensive,
 }) {
 	return (
 		<div
@@ -35,7 +36,10 @@ function PlayerSkateCard({
 					</button>
 				</div>
 				<select
-					className="border-2 border-[#100c08] rounded-mdpx-4 py-1 shadow-md "
+					className={`border-2 border-[#100c08] rounded-mdpx-4 py-1 shadow-md ${
+						defensive ? "opacity-10" : "opacity-100"
+					}`}
+					disabled={defensive}
 					onChange={handleSelectTrick}
 				>
 					<option value="">Select trick</option>
