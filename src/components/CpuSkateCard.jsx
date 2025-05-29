@@ -1,56 +1,67 @@
 import { useState, useEffect } from "react";
+import { TbSkateboarding } from "react-icons/tb";
 
 function CpuSkateCard({
 	currentPlayer,
 	gameSettings,
 	trickList,
-	handleLandChance,
+	defensive,
+	cpuTrick,
+	playerTrick,
+	cpuLanded,
+	handleCpuTurn,
 }) {
 	// Might need to move this state and function for the handleTurn up
-	const [trick, setTrick] = useState("");
-	const [landed, setLanded] = useState(null);
+	// const [trick, setTrick] = useState("");
+	// const [landed, setLanded] = useState(null);
 
-	const handleCpuTurn = () => {
-		if (!currentPlayer && trickList.length > 0) {
-			const randomIndex = Math.floor(Math.random() * trickList.length);
-			const selectedTrick = trickList[randomIndex];
+	// const handleCpuTurn = () => {
+	// 	if (!currentPlayer && trickList.length > 0) {
+	// 		const randomIndex = Math.floor(Math.random() * trickList.length);
+	// 		const selectedTrick = trickList[randomIndex];
 
-			setTrick(selectedTrick);
+	// 		setTrick(selectedTrick);
+	// 		if (defensive) {
+	// 			setCpuTrick(selectedTrick);
+	// 		}
 
-			const chance = handleLandChance(
-				gameSettings.difficulty,
-				selectedTrick.difficulty
-			);
+	// 		const chance = handleLandChance(
+	// 			gameSettings.difficulty,
+	// 			selectedTrick.difficulty
+	// 		);
 
-			// 50% chance to land??? - might be too high or low --- need to test!!!!
-			const didLand = Math.random() < chance;
-			setLanded(didLand);
-		}
-	};
+	// 		// 50% chance to land??? - might be too high or low --- need to test!!!!
+	// 		const didLand = Math.random() < chance;
+	// 		setLanded(didLand);
+	// 	}
+	// };
 
 	return (
 		<div
 			className={`h-1/2 md:h-full md:w-1/2 m-4 flex flex-col justify-between border border-[#100c08] rounded-xl shadow-lg items-center relative py-4 pt-2 ${
 				currentPlayer ? "opacity-20" : "opacity-100"
-			} transition-opacity duration-500 ease-in-out`}
+			} transition-opacity duration-1000 ease-in-out`}
 		>
-			<div className="">
-				<h1 className="font-noland tracking-wide text-center text-2xl pb-4">
+			<div className="w-full text-xl relative">
+				<h1 className="font-noland tracking-wide pb-4 flex items-center justify-between gap-4 px-4">
 					{gameSettings.opponent}
+					{defensive && <TbSkateboarding className="text-green-600" />}
 				</h1>
-				<h1 className="text-5xl font-bold font-magnifico opacity-10 m-0 p-0 z-50">
+				<h1 className="text-5xl font-bold font-magnifico opacity-10 m-0 p-0 z-50 text-center">
 					SKATE
 				</h1>
 			</div>
 			<div className="">
 				<h1 className="font-noland text-6xl tracking-wide m-0 p-0">
-					{trick.trick || "Press Start"}
+					{defensive && !currentPlayer
+						? cpuTrick?.trick || "Press Start"
+						: playerTrick || ""}
 				</h1>
 			</div>
 
 			<div className="">
-				{landed === true && <p className="">Landed!</p>}{" "}
-				{landed === false && <p className="">Bailed!</p>}
+				{cpuLanded === true && <p className="">Landed!</p>}{" "}
+				{cpuLanded === false && <p className="">Bailed!</p>}
 			</div>
 
 			<div className=" w-full flex justify-around">

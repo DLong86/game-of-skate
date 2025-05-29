@@ -15,6 +15,7 @@ import useBeginnerTrick from "../hooks/useBeginnerTrick";
 	   - If offensive and bail then no letter, if defensive and bail then a letter is added
 	   - otherwise a make would switch player
 	   - If defensive === true and bail, then add letter and switch player, else if !defensive and bail, no letter, defensive true, switch player
+	   - need an icon or something to show who is offensive
 	5: A make switches player without a letter added
 */
 }
@@ -40,7 +41,10 @@ const baseChances = {
 function Skate({ gameSettings, result }) {
 	const [currentPlayer, setCurrentPlayer] = useState(true);
 	const { data: beginnerTricks, loading, error } = useBeginnerTrick();
-	const [selectedTrick, setSelectedTrick] = useState("");
+	// const [selectedTrick, setSelectedTrick] = useState("");
+	const [playerTrick, setPlayerTrick] = useState(null);
+	const [cpuTrick, setCpuTrick] = useState(null);
+	const [cpuLanded, setCpuLanded] = useState(null);
 	const [defensive, setDefensive] = useState(true);
 
 	useEffect(() => {
@@ -53,16 +57,42 @@ function Skate({ gameSettings, result }) {
 		}
 	}, [result]);
 
-	console.log(currentPlayer);
-	console.log("defensive:", defensive);
-
 	const handleLandChance = (gameDifficulty, trickDifficulty) => {
 		const chance = baseChances[gameDifficulty]?.[trickDifficulty];
 		return chance ?? 0;
 	};
 
 	const handleSelectTrick = (e) => {
-		setSelectedTrick(e.target.value);
+		if (!defensive) {
+			const selected = beginnerTricks.find(
+				(tricks) => tricks.trick === e.target.value.value
+			);
+			setPlayerTrick(selected || null);
+		}
+	};
+
+	const handlePlayerLandTrick = () => {
+		setCurrentPlayer(!currentPlayer);
+	};
+
+	const handleCpuTurn = () => {
+		if (!currentPlayer && beginnerTricks.length > 0) {
+			const randomIndex = Math.floor(Math.random() * beginnerTricks.length);
+			const selectedTrick = beginnerTricks[randomIndex];
+
+			setCpuTrick(selectedTrick);
+
+			const chance = handleLandChance(
+				gameSettings.difficulty,
+				selectedTrick.difficulty
+			);
+
+			// 50% chance to land??? - might be too high or low --- need to test!!!!
+			const didLand = Math.random() < chance;
+			setCpuLanded(didLand);
+
+			setCurrentPlayer(!currentPlayer);
+		}
 	};
 
 	return (
@@ -86,14 +116,21 @@ function Skate({ gameSettings, result }) {
 					currentPlayer={currentPlayer}
 					trickList={beginnerTricks}
 					handleSelectTrick={handleSelectTrick}
-					selectedTrick={selectedTrick}
+					playerTrick={playerTrick}
 					defensive={defensive}
+					handlePlayerLandTrick={handlePlayerLandTrick}
+					cpuTrick={cpuTrick}
 				/>
 				<CpuSkateCard
 					gameSettings={gameSettings}
 					currentPlayer={currentPlayer}
 					trickList={beginnerTricks}
 					handleLandChance={handleLandChance}
+					defensive={defensive}
+					cpuTrick={cpuTrick}
+					playerTrick={playerTrick}
+					cpuLanded={cpuLanded}
+					handleCpuTurn={handleCpuTurn}
 				/>
 			</div>
 		</div>
