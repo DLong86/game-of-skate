@@ -59,7 +59,7 @@ function CpuSkateCard({
 				</h1>
 			</div>
 
-			<div className="">
+			<div className="absolute z-40 oppacity-100">
 				{cpuLanded === true && <p className="">Landed!</p>}{" "}
 				{cpuLanded === false && <p className="">Bailed!</p>}
 			</div>

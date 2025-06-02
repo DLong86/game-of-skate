@@ -9,6 +9,7 @@ function PlayerSkateCard({
 	defensive,
 	handlePlayerLandTrick,
 	cpuTrick,
+	handlePlayerBail,
 }) {
 	return (
 		<div
@@ -27,7 +28,9 @@ function PlayerSkateCard({
 			</div>
 			<div className="">
 				<h1 className="font-noland text-6xl tracking-wide m-0 p-0">
-					{defensive && currentPlayer ? cpuTrick?.trick : playerTrick?.trick}
+					{currentPlayer && defensive && currentPlayer
+						? cpuTrick?.trick
+						: playerTrick}
 				</h1>
 			</div>
 			<div className=" w-full flex justify-between px-4">
@@ -38,15 +41,18 @@ function PlayerSkateCard({
 					>
 						Make
 					</button>
-					<button className="border-2 border-[#100c08] rounded-full px-4 py-1 shadow-md  text-gray-800 bg-[#bfc489]">
+					<button
+						className="border-2 border-[#100c08] rounded-full px-4 py-1 shadow-md  text-gray-800 bg-[#bfc489]"
+						onClick={handlePlayerBail}
+					>
 						Bail
 					</button>
 				</div>
 				<select
 					className={`border-2 border-[#100c08] rounded-mdpx-4 py-1 shadow-md ${
-						defensive ? "opacity-10" : "opacity-100"
+						!currentPlayer || defensive ? "opacity-10" : "opacity-100"
 					}`}
-					disabled={defensive}
+					disabled={!currentPlayer || defensive}
 					onChange={handleSelectTrick}
 				>
 					<option value="">Select trick</option>

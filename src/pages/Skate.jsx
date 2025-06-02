@@ -47,6 +47,8 @@ function Skate({ gameSettings, result }) {
 	const [cpuLanded, setCpuLanded] = useState(null);
 	const [defensive, setDefensive] = useState(true);
 
+	console.log(defensive);
+
 	useEffect(() => {
 		if (result === "You Win") {
 			setCurrentPlayer(true);
@@ -64,15 +66,28 @@ function Skate({ gameSettings, result }) {
 
 	const handleSelectTrick = (e) => {
 		if (!defensive) {
-			const selected = beginnerTricks.find(
-				(tricks) => tricks.trick === e.target.value.value
-			);
-			setPlayerTrick(selected || null);
+			// const selected = beginnerTricks.find(
+			// 	(tricks) => tricks.trick === e.target.value
+			// );
+			// setPlayerTrick(selected || null);
+			setPlayerTrick(e.target.value);
 		}
 	};
 
 	const handlePlayerLandTrick = () => {
 		setCurrentPlayer(!currentPlayer);
+	};
+
+	const handlePlayerBail = () => {
+		if (!defensive) {
+			// if player is offensive - cpu switches to offensiv
+			setDefensive((prev) => !prev);
+			setCurrentPlayer((prev) => !prev);
+		} else {
+			// if defensive - letter added
+			setCurrentPlayer((prev) => !prev);
+			// get letter - SKATE
+		}
 	};
 
 	const handleCpuTurn = () => {
@@ -87,11 +102,31 @@ function Skate({ gameSettings, result }) {
 				selectedTrick.difficulty
 			);
 
-			// 50% chance to land??? - might be too high or low --- need to test!!!!
 			const didLand = Math.random() < chance;
 			setCpuLanded(didLand);
 
-			setCurrentPlayer(!currentPlayer);
+			if (defensive) {
+				// which means defensive is true (player) so cpu is offensive
+				if (didLand) {
+					setCurrentPlayer(!currentPlayer);
+					console.log("Laded, offensive", defensive);
+					// setDefensive(true);
+				} else {
+					// if cpu is offensive and doesn't land
+					setDefensive(false); // player becomes offensive
+					console.log("was offensive but bailed trick", defensive);
+					setCurrentPlayer(!currentPlayer);
+				}
+			} else {
+				// defensive === false, which means player is offensive and cpu is defensive
+				if (didLand) {
+					setCurrentPlayer(!currentPlayer);
+					console.log("defensive and did land", defensive);
+				} else {
+					console.log("defensive cpu and bailed so letter added", defensive);
+					setCurrentPlayer(!currentPlayer);
+				}
+			}
 		}
 	};
 
@@ -120,6 +155,7 @@ function Skate({ gameSettings, result }) {
 					defensive={defensive}
 					handlePlayerLandTrick={handlePlayerLandTrick}
 					cpuTrick={cpuTrick}
+					handlePlayerBail={handlePlayerBail}
 				/>
 				<CpuSkateCard
 					gameSettings={gameSettings}
